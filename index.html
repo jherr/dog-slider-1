@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>Text above slider</h1>
+    <svg
+      width="100%"
+      viewBox="0 0 100 60"
+      id="carousel"
+    >
+      <defs>
+        <mask id="Mask">
+          <linearGradient id="boxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: #333;stop-opacity: 1" />
+            <stop offset="30%" style="stop-color: white;stop-opacity: 1" />
+            <stop offset="60%" style="stop-color: white;stop-opacity: 1" />
+            <stop offset="100%" style="stop-color: #333;stop-opacity: 1" />
+          </linearGradient>
+          <rect
+            x="2.5"
+            y="2.5"
+            width="95"
+            height="50"
+            rx="2"
+            style="fill: url(#boxGradient);"
+          />  
+          <rect
+            x="5"
+            y="5"
+            width="90"
+            height="30"
+            rx="2"
+            style="fill: black;"
+          />  
+          <text
+            id="dog-name"
+            x="10"
+            y="49"
+            style="
+              font-family: Impact, Arial, Helvetica, sans-serif;
+              font-size: 11pt;
+              font-weight: bold;
+              fill: black;
+            "
+          />
+          </mask>
+      </defs>
+      <image
+        id="img0"
+        x="0"
+        y="0"
+        href="https://placedog.net/900?id=20"
+        width="100"
+        class="dog-image"
+      />
+      <image
+        id="img1"
+        x="100"
+        y="0"
+        href="https://placedog.net/900?id=10"
+        width="100"
+        class="dog-image"
+      />
+      <image
+        id="img2"
+        x="100"
+        y="0"
+        href="https://placedog.net/900?id=122"
+        width="100"
+        class="dog-image"
+      />
+      <rect
+        mask="url(#Mask)"
+        x="2.5"
+        y="2.5"
+        width="95"
+        height="50"
+        rx="2"
+        style="fill: rgba(255, 255, 255, 0.7); pointer-events: none;"
+      />
+      <text
+        id="dog-text"
+        x="5"
+        y="58.5"
+        style="
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 5pt;
+          font-weight: bold;
+          fill: white;
+          pointer-events: none;
+        "
+      />
+    </svg>
+
+    <h1>Text below slider</h1>
+
+    <script>
+      const dogs = [
+        {
+          img: document.getElementById("img0"),
+          name: "Oso",
+          text: "The best dog on the planet",
+        },
+        {
+          img: document.getElementById("img1"),
+          name: "Mimi",
+          text: "So cute it hurts",
+        },
+        {
+          img: document.getElementById("img2"),
+          name: "Little Guy",
+          text: "A super good dog",
+        },
+      ];
+
+      let current = 0;
+
+      const update = () => {
+        document.getElementById("dog-name").innerHTML = dogs[current].name;
+        document.getElementById("dog-text").innerHTML = dogs[current].text;
+        dogs.forEach(({ img }, index) => {
+          img.x.baseVal.value = current * -100 + index * 100;
+        });
+      }
+      update();
+
+      document.getElementById("carousel").addEventListener("click", () => {
+        current += 1;
+        if (current >= dogs.length) {
+          current = 0;
+        }
+        update();
+      });
+    </script>
+  </body>
+</html>
